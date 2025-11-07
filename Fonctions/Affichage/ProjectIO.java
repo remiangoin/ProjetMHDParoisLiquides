@@ -14,7 +14,7 @@ import java.util.*;
 /** Sauvegarde / Ouverture de projet .mhd.json */
 public final class ProjectIO {
 
-    // ====== PUBLIC: Appelle juste ces 2 méthodes depuis ton UI ======
+ 
     public static boolean saveWithChooser(JFrame parent, File currentFile) {
         try {
             File f = (currentFile != null) ? currentFile : chooseSaveFile(parent);
@@ -68,9 +68,9 @@ public final class ProjectIO {
         return f;
     }
 
-    // ========================================================================
-    // =======================  DOCUMENT (DTO JSON)  ==========================
-    // ========================================================================
+
+    // DOCUMENT (DTO JSON) 
+
     public static final class Document {
         public String version = "0.1.0";
         public Meta meta = new Meta();
@@ -122,8 +122,7 @@ public final class ProjectIO {
                         ds.line = ln;
                     }
                     case POLY -> {
-                        // Optionnel: si tu utilises buildClosedPathFromSelectedLines() qui renvoie Path2D
-                        // tu peux approximer en liste de points. Pour l’instant on ignore si tu n’en crées pas encore.
+ 
                         ds.poly = pathToPoints(it.shape);
                     }
                 }
@@ -212,7 +211,7 @@ public final class ProjectIO {
             Globals.materialsModel.removeAllElements();
             Globals.rectCount = Globals.ovalCount = Globals.lineCount = Globals.polyCount = 0;
 
-            // --- Params
+            // Params
             if (Globals.paramsModel != null) {
                 var m = Globals.paramsModel;
                 // vide le modèle
@@ -222,7 +221,7 @@ public final class ProjectIO {
                 }
             }
 
-            // --- Geometry (recrée les shapes + compteurs)
+            // Geometry (recrée les shapes + compteurs)
             Map<String, ShapeItem> id2shape = new LinkedHashMap<>();
             for (DocShape ds : geometry.shapes){
                 ShapeItem si = null;
@@ -264,7 +263,7 @@ public final class ProjectIO {
                 }
             }
 
-            // --- Domains
+            // Domaines
             if (Globals.domainsModel != null && domains.table != null) {
                 var m = Globals.domainsModel;
                 while (m.getRowCount()>0) m.removeRow(0);
@@ -283,7 +282,7 @@ public final class ProjectIO {
                 Globals.fireDomainsChanged();
             }
 
-            // --- Materials
+            // Materiaux
             if (materials != null){
                 if (materials.list != null)
                     for (String name : materials.list) Globals.ensureMaterial(name);
@@ -322,7 +321,7 @@ public final class ProjectIO {
             Globals.repaintAll();
         }
 
-        // ---------------- DTOs ----------------
+        // DTOs 
         public static final class Meta { public String created = new Date().toString(); public String modified = created; }
         public static final class Param {
             public String name, unit, value, desc;
@@ -371,7 +370,7 @@ public final class ProjectIO {
             public String kExpr="", energyMeV="", products="", reactants="";
         }
 
-        // ---------------- Utils serialize/parse ----------------
+        //  Utils serialisation/parse 
         private static String get(DefaultTableModel m, int r, int c){
             Object v = m.getValueAt(r, c);
             return (v==null) ? "" : v.toString();
