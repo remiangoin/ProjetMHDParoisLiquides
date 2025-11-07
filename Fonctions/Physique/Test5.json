@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "params": [
+    {"name":"Ligne","unit":"m","value":"100","desc":""}
+  ],
+  "shapes": [
+    {"id":"r1","kind":"RECT","x":60.0,"y":60.0,"w":120.0,"h":80.0},
+    {"id":"l1","kind":"LINE","x1":60.0,"y1":60.0,"x2":180.0,"y2":60.0},
+    {"id":"l2","kind":"LINE","x1":180.0,"y1":60.0,"x2":180.0,"y2":140.0},
+    {"id":"l3","kind":"LINE","x1":180.0,"y1":140.0,"x2":60.0,"y2":140.0},
+    {"id":"l4","kind":"LINE","x1":60.0,"y1":140.0,"x2":60.0,"y2":60.0},
+    {"id":"r2","kind":"RECT","x":70.0,"y":70.0,"w":100.0,"h":60.0},
+    {"id":"l5","kind":"LINE","x1":70.0,"y1":70.0,"x2":170.0,"y2":70.0},
+    {"id":"l6","kind":"LINE","x1":170.0,"y1":70.0,"x2":170.0,"y2":130.0},
+    {"id":"l7","kind":"LINE","x1":170.0,"y1":130.0,"x2":70.0,"y2":130.0},
+    {"id":"l8","kind":"LINE","x1":70.0,"y1":130.0,"x2":70.0,"y2":70.0}
+  ],
+  "shapeEdgeLines": {
+    "r1": ["l1","l2","l3","l4"],
+    "r2": ["l5","l6","l7","l8"]
+  },
+  "domainEdits": {
+    "Domaine_1": [{"shapeId":"r1","op":"UNION"},{"shapeId":"r2","op":"SUB"}]
+  },
+  "meshSpecs": {
+    "Domaine_1": {"kind":"TRI_REG","dx":0.2,"dy":0.2,"dxmin":null,"dxmax":null,"dymin":null,"dymax":null,"growFromBoundary":true}
+  },
+  "materials": ["Matériau_1"],
+  "materialDomains": {
+    "Matériau_1": ["Domaine_1"]
+  },
+  "domainOwner": {
+    "Domaine_1": "Matériau_1"
+  },
+  "matVars": {
+    "Matériau_1": {"rho": {"useFunc":true,"funcExpr":"10","csvPath":"","useT":false,"useP":false,"useConc":false},"mu": {"useFunc":true,"funcExpr":"10","csvPath":"","useT":false,"useP":false,"useConc":false},"cp": {"useFunc":true,"funcExpr":"10","csvPath":"","useT":false,"useP":false,"useConc":false},"sigma_e": {"useFunc":true,"funcExpr":"10","csvPath":"","useT":false,"useP":false,"useConc":false},"mu_r": {"useFunc":true,"funcExpr":"10","csvPath":"","useT":false,"useP":false,"useConc":false},"chi_m": {"useFunc":true,"funcExpr":"10","csvPath":"","useT":false,"useP":false,"useConc":false}}
+  },
+  "reactions": {
+    "Matériau_1": [{"kExpr":"","energyMeV":"","products":"","reactants":""}]
+  },
+  "boundarySpecs": {
+    "Frontière_1": {"ux":"10","uy":"10","p":"10","T":"10","B":"10","mass":"10","external":true},
+    "Frontière_2": {"ux":"10","uy":"10","p":"10","T":"10","B":"10","mass":"10","external":true}
+  },
+  "boundaryLines": {
+    "Frontière_1": ["l1","l2","l3","l4"],
+    "Frontière_2": ["l5","l6","l7","l8"]
+  },
+  "initSpecs": {
+    "CI_1": {"ux":"0","uy":"0","p":"0","T":"0","B":"0","mass":"0","external":true}
+  },
+  "initDomains": {
+    "CI_1": ["Domaine_1"]
+  },
+  "solver": {"timeScheme":"Euler implicite","linSolver":"CG","precond":"ILU","tol":"1e-8","iters":"500"}
+}
